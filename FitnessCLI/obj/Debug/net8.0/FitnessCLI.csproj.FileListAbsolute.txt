@@ -129,3 +129,4 @@
 /home/filse/RiderProjects/FitnessCLI/FitnessCLI/obj/Debug/net8.0/FitnessCLI.pdb
 /home/filse/RiderProjects/FitnessCLI/FitnessCLI/obj/Debug/net8.0/FitnessCLI.genruntimeconfig.cache
 /home/filse/RiderProjects/FitnessCLI/FitnessCLI/obj/Debug/net8.0/ref/FitnessCLI.dll
+/home/filse/RiderProjects/FitnessCLI/FitnessCLI/obj/Debug/net8.0/FitnessCLI.sourcelink.json
