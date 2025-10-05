@@ -2,13 +2,13 @@
 using FitnessCLI;
 using FitnessCLI.Models;
 using Microsoft.EntityFrameworkCore;
-
+using static FitnessCLI.Helpers.Helper;
 while (true)
 { 
 Console.Clear();
 Console.WriteLine("1. (A)dd Workout");
 Console.WriteLine("2. View (P)ast Workouts");
-
+Console.WriteLine("3. (S)tats");
 char input = Console.ReadKey().KeyChar;
 if (input == '1' || input.ToString().ToLower() == "a")
 {
@@ -20,6 +20,11 @@ if (input == '1' || input.ToString().ToLower() == "a")
     Console.Clear();
     Console.WriteLine("Enter Workout Name");
     workout.Name = Console.ReadLine();
+    while (workout.Name.Length < 1)
+    {
+        Console.WriteLine("Enter Workout Name");
+        workout.Name = Console.ReadLine();
+    }
     Console.WriteLine("Type: Name, Sets, Reps, Kg");
     Console.WriteLine("When ready type \"Done\"");
     List<Exercise> exercises = new List<Exercise>();
@@ -32,6 +37,17 @@ if (input == '1' || input.ToString().ToLower() == "a")
             break;
         }
 
+        if (inputExercise.Length > 4)
+        {
+            Console.WriteLine("Please enter only Name, Sets, Reps, Kg");
+            continue;
+        }
+
+        if (inputExercise.Length < 3)
+        {
+            Console.WriteLine("Please enter atleast Name, Sets, Reps");
+            continue;
+        }
         string exName = inputExercise[0];
         int exSets = int.Parse(inputExercise[1]);
         int exReps = int.Parse(inputExercise[2]);
@@ -85,29 +101,14 @@ if (input == '2' || input.ToString().ToLower() == "p")
     if (inputHist == '1' || inputHist.ToString().ToLower() == "a")
     {
         PrintWorkout(workouts);
-        Console.WriteLine("Press d to delete or any key to exit...");
-        var key = Console.ReadKey();
-        if (key.KeyChar == 'd')
-        {
-            Console.WriteLine("Choose Workout Number");
-            int choice = int.Parse(Console.ReadLine());
-            Console.WriteLine();
-            Workout workout = workouts[choice];
-            if (choice > 0 && choice <= workouts.Count)
-            {
-                using (var context = new FitnessDbContext())
-                {
-                    context.Workouts.Remove(workouts[choice]);
-                    await context.SaveChangesAsync();
-                }
-            }
-        }
+        await DeleteWorkout(workouts);
     }
 
     if (inputHist == '2' || inputHist.ToString().ToLower() == "l")
     {
         List<Workout> last10work = workouts.OrderByDescending(w => w.Date).Take(10).ToList();
         PrintWorkout(last10work);
+        await DeleteWorkout(workouts);
     }
 
     if (inputHist == '3' || inputHist.ToString().ToLower() == "e")
@@ -116,26 +117,48 @@ if (input == '2' || input.ToString().ToLower() == "p")
         var workoutDate = DateTime.Parse(Console.ReadLine());
         List<Workout> workDate = workouts.Where(w => w.Date.Day == workoutDate.Day).ToList();
         PrintWorkout(workDate);
+        await DeleteWorkout(workouts);
     }
-}
 }
 
-void PrintWorkout(List<Workout> list)
+if (input == '3' || input.ToString().ToLower() == "s")
 {
-    int number = 1;
-    Console.WriteLine();
-    foreach (var work in list)
+    Console.Clear();
+    List<Workout> workouts = new List<Workout>();
+    using (var context = new FitnessDbContext())
     {
-        Console.WriteLine("---------------------------------------------");
-        Console.WriteLine($"Number: {number}");
-        Console.WriteLine($"{work.Name} {work.Date.ToShortDateString()}:");
-        foreach (var ex in work.Exercises)
-        {
-            Console.WriteLine($"{ex.Name},Sets: {ex.Sets},Reps: {ex.Reps}, {ex.Kg}");
-        }
-        Console.WriteLine("---------------------------------------------");
-        
-        Console.WriteLine();
-        number++;
+        workouts = await context.Workouts.Include(w => w.Exercises).ToListAsync();
     }
+
+    if (workouts.Count > 0)
+    {
+        Console.WriteLine($"Total Workouts: {workouts.Count}");
+        int sets = 0;
+        foreach (var w in workouts)
+        {
+            foreach (var ex in w.Exercises)
+            {
+                sets += ex.Sets;
+            }
+        }
+        Console.WriteLine($"Total Sets: {sets}");
+        int reps = 0;
+        foreach (var w in workouts)
+        {
+            foreach (var ex in w.Exercises)
+            {
+                reps += ex.Reps;
+            }
+        }
+
+        Console.WriteLine($"Total Reps: {reps}");
+    }
+
+    if (workouts.Count > 0)
+    {
+        
+    }
+    Console.WriteLine("Press any key to exit...");
+    var key = Console.ReadKey();
+}
 }

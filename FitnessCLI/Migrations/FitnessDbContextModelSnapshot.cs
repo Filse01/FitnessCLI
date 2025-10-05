@@ -33,12 +33,15 @@ namespace FitnessCLI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Reps")
+                        .HasMaxLength(2)
                         .HasColumnType("int");
 
                     b.Property<int>("Sets")
+                        .HasMaxLength(2)
                         .HasColumnType("int");
 
                     b.Property<Guid>("WorkouId")
@@ -65,7 +68,8 @@ namespace FitnessCLI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
