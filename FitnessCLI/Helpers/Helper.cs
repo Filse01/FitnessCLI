@@ -44,6 +44,25 @@ public class Helper
             }
         }
     }
+    static public void PrintTemplates(List<Template> list)
+    {
+        int number = 1;
+        Console.WriteLine();
+        foreach (var work in list)
+        {
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine($"Number: {number}");
+            Console.WriteLine($"{work.Name}");
+            foreach (var ex in work.Exercises)
+            {
+                Console.WriteLine($"{ex.Name},Sets: {ex.Sets},Reps: {ex.Reps}, {ex.Kg}");
+            }
+            Console.WriteLine("---------------------------------------------");
+        
+            Console.WriteLine();
+            number++;
+        }
+    }
 
 
 }

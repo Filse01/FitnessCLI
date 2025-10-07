@@ -44,17 +44,38 @@ namespace FitnessCLI.Migrations
                         .HasMaxLength(2)
                         .HasColumnType("int");
 
-                    b.Property<Guid>("WorkouId")
+                    b.Property<Guid?>("TemplateId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("WorkoutId")
+                    b.Property<Guid?>("WorkouId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("WorkoutId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TemplateId");
+
                     b.HasIndex("WorkoutId");
 
                     b.ToTable("Exercises");
+                });
+
+            modelBuilder.Entity("FitnessCLI.Models.Template", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Templates");
                 });
 
             modelBuilder.Entity("FitnessCLI.Models.Workout", b =>
@@ -78,13 +99,22 @@ namespace FitnessCLI.Migrations
 
             modelBuilder.Entity("FitnessCLI.Models.Exercise", b =>
                 {
+                    b.HasOne("FitnessCLI.Models.Template", "Template")
+                        .WithMany("Exercises")
+                        .HasForeignKey("TemplateId");
+
                     b.HasOne("FitnessCLI.Models.Workout", "Workout")
                         .WithMany("Exercises")
-                        .HasForeignKey("WorkoutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WorkoutId");
+
+                    b.Navigation("Template");
 
                     b.Navigation("Workout");
+                });
+
+            modelBuilder.Entity("FitnessCLI.Models.Template", b =>
+                {
+                    b.Navigation("Exercises");
                 });
 
             modelBuilder.Entity("FitnessCLI.Models.Workout", b =>

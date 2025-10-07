@@ -4073,7 +4073,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/home/filse/.dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
