@@ -9,6 +9,7 @@ Console.Clear();
 Console.WriteLine("1. (A)dd New Workout");
 Console.WriteLine("2. View (P)ast Workouts");
 Console.WriteLine("3. (S)tats");
+Console.WriteLine("4. (G)oals");
 char input = Console.ReadKey().KeyChar;
 if (input == '1' || input.ToString().ToLower() == "a")
 {
@@ -22,4 +23,5 @@ else if (input == '3' || input.ToString().ToLower() == "s")
 {
     await StatsFlow.ShowStatsMenu();
 }
+
 }

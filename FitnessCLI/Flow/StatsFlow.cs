@@ -31,7 +31,7 @@ public class StatsFlow
             {
                 foreach (var ex in w.Exercises)
                 {
-                    reps += ex.Reps;
+                    reps += ex.Sets * ex.Reps;
                 }
             }
 
