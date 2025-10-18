@@ -62,6 +62,43 @@ namespace FitnessCLI.Migrations
                     b.ToTable("Exercises");
                 });
 
+            modelBuilder.Entity("FitnessCLI.Models.Goals", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CalorieGoal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KgGoal")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Goals");
+                });
+
+            modelBuilder.Entity("FitnessCLI.Models.Results", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Results");
+                });
+
             modelBuilder.Entity("FitnessCLI.Models.Template", b =>
                 {
                     b.Property<Guid>("Id")

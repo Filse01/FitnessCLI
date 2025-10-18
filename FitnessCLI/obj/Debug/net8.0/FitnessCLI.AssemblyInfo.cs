@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FitnessCLI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e12d2e9cacab0a99db7eadec688347a700f4dc7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c738ef706b53f2c8a470bf43b4e074acda2bed70")]
 [assembly: System.Reflection.AssemblyProductAttribute("FitnessCLI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FitnessCLI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

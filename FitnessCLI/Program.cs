@@ -23,5 +23,8 @@ else if (input == '3' || input.ToString().ToLower() == "s")
 {
     await StatsFlow.ShowStatsMenu();
 }
-
+else if (input == '4' || input.ToString().ToLower() == "g")
+{
+    await GoalsFlow.ShowGoalsView();
+}
 }
